@@ -2,8 +2,13 @@
 
 Este projeto estende o Graylog com integração a um LLM (Large Language Model), permitindo análise inteligente de logs, identificação automática de padrões suspeitos e apoio na investigação de incidentes de segurança.
 
+---
+
+
 Instalar o LLaMA docker 
 exec -it ollama ollama run llama3
+
+---
 
 - 🔐 Falhas de autenticação
 - ⚠️ Atividades anômalas
