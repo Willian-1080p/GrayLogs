@@ -1,0 +1,75 @@
+version: "3.8"
+
+services:
+
+  mongodb:
+    image: mongo:5.0
+    container_name: graylog-mongo
+    hostname: mongo
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - graylog_net
+
+  opensearch:
+    image: opensearchproject/opensearch:2.11.0
+    container_name: graylog-opensearch
+    hostname: opensearch
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - plugins.security.disabled=true
+      - OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - os_data:/usr/share/opensearch/data
+    ports:
+      - "9200:9200"
+    networks:
+      - graylog_net
+
+  graylog:
+    image: graylog/graylog:5.2
+    container_name: graylog
+    hostname: graylog
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+      - opensearch
+    environment:
+      - GRAYLOG_PASSWORD_SECRET=X$3h#^VN!%2$3i71
+      - GRAYLOG_ROOT_PASSWORD_SHA2=4fb587ab17ad0393cc3e4d8302078e41d04294c57a096a9449ee059fc22feee3
+      - GRAYLOG_HTTP_EXTERNAL_URI=http://localhost:9000/
+      - GRAYLOG_MONGODB_URI=mongodb://mongo:27017/graylog
+      - GRAYLOG_ELASTICSEARCH_HOSTS=http://opensearch:9200
+    ports:
+      - "9000:9000"
+      - "1514:1514/udp"
+      - "12201:12201/udp"
+      - "5044:5044"
+    networks:
+      - graylog_net
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    hostname: ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - graylog_net
+
+volumes:
+  mongo_data:
+  os_data:
+  ollama_data:
+
+networks:
+  graylog_net:
+    driver: bridge
