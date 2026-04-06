@@ -1,0 +1,2 @@
+Instalar o LLaMA
+docker exec -it ollama ollama run llama3
