@@ -79,16 +79,12 @@ Detectar atividades suspeitas
 Auditoria de eventos do sistema
 Apoio em análise forense
 
----
-
 🚨 Exemplos de eventos
 Failed login
 Alteração de usuário
 Execução de processos
 Tentativas de acesso não autorizado
 🔐 Segurança
-
----
 
 Boas práticas recomendadas:
 
