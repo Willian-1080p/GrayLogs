@@ -1,3 +1,9 @@
+📊 Graylog Stack com Docker
+
+Este projeto implementa uma plataforma completa de centralização de logs utilizando o Graylog, com suporte a ingestão via Syslog, GELF e Beats, permitindo monitoramento, análise e correlação de eventos em um ambiente centralizado.
+
+---
+
 - Graylog 5.2
 - MongoDB 5.0
 - OpenSearch 2.11
