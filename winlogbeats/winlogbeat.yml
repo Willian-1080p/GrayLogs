@@ -1,0 +1,5 @@
+winlogbeat.event_logs:
+  - name: Security
+
+output.logstash:
+  hosts: ["192.168.15.234:5044"]
